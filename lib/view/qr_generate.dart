@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:qr_app/view/qr_display_screen.dart';
+import 'package:qr_app/utils/routes/routes_name.dart';
 
 class QRGenerate extends StatefulWidget {
   const QRGenerate({Key? key}) : super(key: key);
@@ -17,11 +19,6 @@ class _QRGenerateState extends State<QRGenerate> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // QrImage(
-            //   data: textControllerValue.text,
-            //   size: 250,
-            //   backgroundColor: Colors.white,
-            // ),
             const SizedBox(
               height: 10,
             ),
@@ -52,11 +49,14 @@ class _QRGenerateState extends State<QRGenerate> {
                     backgroundColor: Colors.green,
                     child: const Icon(Icons.done_all),
                     onPressed: () {
-                      //Navigator.pushNamed(context, RoutesName.qrDisplay);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => QRDisplay(
-                                textController: textControllerValue.text,
-                              )));
+                      Navigator.pushNamed(context, RoutesName.qrDisplay,
+                          arguments: textControllerValue.text);
+                      log("Text editing: $textControllerValue");
+
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (BuildContext context) => QRDisplay(
+                      //           textController: textControllerValue.text,
+                      //         )));
                     },
                   )
                 ],

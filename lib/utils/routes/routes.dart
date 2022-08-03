@@ -6,6 +6,8 @@ import 'package:qr_app/view/qr_scan_screen.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+
     switch (settings.name) {
       case RoutesName.qrScan:
         return MaterialPageRoute(
@@ -16,8 +18,7 @@ class Routes {
             builder: (BuildContext context) => const QRGenerate());
       case RoutesName.qrDisplay:
         return MaterialPageRoute(
-            builder: (BuildContext context) =>
-                const QRDisplay(textController: ''));
+            builder: (BuildContext context) => QRDisplay(data: args as String));
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
