@@ -17,7 +17,7 @@ class Routes {
       case RoutesName.qrDisplay:
         return MaterialPageRoute(
             builder: (BuildContext context) =>
-                const QRDisplay(textController: ""));
+                const QRDisplay(textController: ''));
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
