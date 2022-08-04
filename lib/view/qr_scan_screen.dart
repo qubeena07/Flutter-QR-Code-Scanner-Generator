@@ -19,6 +19,9 @@ class _QRScanState extends State<QRScan> {
   QRViewController? controller;
 
   String? todayDate;
+  String? firstText;
+  String secondText = "";
+
   String date = "";
 
   late SharedPreferences prefs;
@@ -62,26 +65,12 @@ class _QRScanState extends State<QRScan> {
           //   visible: date.isEmpty,
           //   child: buildQRView(context),
           // ),
-          buildQRView(context),
-          Positioned(
-              bottom: 10,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:
-
-                    // Visibility(
-                    //   visible: date.isEmpty,
-                    //   child: buildResult(),
-                    // ),
-                    (date == todayDate) ? messageBox() : buildResult(),
-
-                // (usedQR == false)?
-                //buildResult()
-                // : const Text(
-                //   "No scan",
-                //  style: TextStyle(fontSize: 20, color: Colors.white),
-                //)
-              ))
+          (date == todayDate) ? messageBox() : buildQRView(context),
+          // buildQRView(context),
+          // Positioned(
+          //     bottom: 10,
+          //     child: Padding(
+          //         padding: const EdgeInsets.all(8.0), child: buildResult()))
         ],
       ),
     ));
@@ -100,22 +89,28 @@ class _QRScanState extends State<QRScan> {
   void onQRViewCreated(QRViewController controller) {
     setState(() {
       this.controller = controller;
+      // todayDate = DateFormat('yyyy-dd-MM').format(DateTime.now());
     });
     controller.scannedDataStream.listen(
       (barcode) => setState(() {
         this.barcode = barcode;
-        //usedQR = true;
       }),
     );
   }
 
   Widget buildResult() {
     setState(() {
-      todayDate = DateFormat('yyyy-mm-dd').format(DateTime.now());
+      //todayDate = true;
+      todayDate = DateFormat('yyyy-dd-MM').format(DateTime.now());
+
+      //firstText = "${barcode}"
+      //log("firstText----${barcode!.code}");
     });
+    //saveTodaysDate(todayDate!);
 
     saveTodaysDate(todayDate.toString());
     log("dateTime----$todayDate");
+    //log("firstText------$firstText");
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
@@ -123,23 +118,30 @@ class _QRScanState extends State<QRScan> {
         color: Colors.white70,
       ),
       child: Text(
-        barcode != null ? "${barcode!.code}" : "Scan Here!",
+        barcode != null ? "${barcode!.code}" : "",
         maxLines: 3,
       ),
     );
   }
 
-  void saveTodaysDate(String date) async {
+  void saveTodaysDate(
+    String date,
+  ) async {
     prefs = await SharedPreferences.getInstance();
 
     prefs.setString("todaysDate", date);
+    // prefs.setString("firstText", text);
+
+    //prefs.setString("todaysDate", date);
   }
 
   void getTodaysDate() async {
     prefs = await SharedPreferences.getInstance();
 
     date = prefs.getString("todaysDate") ?? "";
+    //secondText = prefs.getString("firstText") ?? "";
     log("date-----$date");
+    //log("secondText-----$secondText");
     setState(() {});
   }
 
@@ -149,7 +151,10 @@ class _QRScanState extends State<QRScan> {
           borderRadius: BorderRadius.circular(8),
           color: Colors.white70,
         ),
-        child: const Text('You already scanned.Cannot scan anymore',
-            style: TextStyle(fontSize: 15, color: Colors.white)),
+        child: const Center(
+          child: Text('You already scanned.Cannot scan anymore',
+              style:
+                  TextStyle(fontSize: 15, color: Color.fromARGB(255, 1, 1, 1))),
+        ),
       );
 }
