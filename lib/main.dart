@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:qr_app/utils/routes/routes.dart';
 import 'package:qr_app/view/home_screen.dart';
 
