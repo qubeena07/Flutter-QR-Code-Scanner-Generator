@@ -41,17 +41,30 @@ class _QRScanState extends State<QRScan> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: MobileScanner(
-          allowDuplicates: false,
-          onDetect: (barcode, args) {
-            if (barcode.rawValue == null) {
-              debugPrint('Failed to scan Barcode');
-            } else {
-              final String code = barcode.rawValue!;
-              debugPrint('Barcode found! $code');
-              checkIfAlreadyScanned(code);
-            }
-          }),
+      body: Container(
+        //color: Colors.black,
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 13, 13, 13),
+          // borderRadius: BorderRadius.circular(10),
+          //border: Border.all(color: Colors.black
+        ),
+
+        child: Padding(
+          padding: const EdgeInsets.all(60),
+          child: MobileScanner(
+              fit: BoxFit.fitWidth,
+              allowDuplicates: false,
+              onDetect: (barcode, args) {
+                if (barcode.rawValue == null) {
+                  debugPrint('Failed to scan Barcode');
+                } else {
+                  final String code = barcode.rawValue!;
+                  debugPrint('Barcode found! $code');
+                  checkIfAlreadyScanned(code);
+                }
+              }),
+        ),
+      ),
     ));
   }
 

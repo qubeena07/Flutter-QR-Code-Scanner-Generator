@@ -29,7 +29,7 @@ class Utils {
         flushbarPosition: FlushbarPosition.TOP,
         reverseAnimationCurve: Curves.easeInOut,
         positionOffset: 10,
-        backgroundColor: const Color.fromARGB(255, 232, 36, 36),
+        backgroundColor: const Color.fromARGB(255, 165, 165, 165),
         // title: "Error",
         duration: const Duration(seconds: 4),
       )..show(context),
@@ -37,7 +37,8 @@ class Utils {
   }
 
   static snackBar(String message, BuildContext context) {
-    return ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(backgroundColor: Colors.red, content: Text(message)));
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: const Color.fromARGB(255, 165, 165, 165),
+        content: Text(message)));
   }
 }
